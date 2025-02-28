@@ -1,0 +1,6 @@
+<h1>Chegou aqui</h1>
+
+{% for expense in expenses %}
+<p>Valor a pagar {{ expense.value }}</p>
+<p>Dia do último pagamento {{ expense.days }}</p>
+{% endfor %}
