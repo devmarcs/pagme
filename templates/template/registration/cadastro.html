@@ -1,0 +1,72 @@
+{% extends "components/base_template.html" %}
+{% block title %} Cadastro de Usuário {% endblock title %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card w-50">
+        {% include "components/messages.html" %}
+        <div class="card-header bg-dark text-white">
+            <h5 class="card-title text-center mb-0">Registro de Usuário </h5>
+        </div>
+        <div class="card-body">
+            <form action="" method="POST" class="d-flex flex-column">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for field, errors in form.errors.items %}
+                                <li>{{ field }}: {{ errors }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <div class="col-md-12 mb-3">
+                    <label for="{{ form.nome_cadastro.id_for_label }}" class="form-label">{{ form.nome_cadastro.label }}</label>
+                    {{ form.nome_cadastro }} <p class="text-muted text-uppercase"><strong>Esse será o seu login de acesso!</strong></p>
+                    {% if form.nome_cadastro.errors %}
+                        <div class="text-danger">{{ form.nome_cadastro.errors }}</div>
+                    {% endif %}
+                </div>
+
+                {% comment %} <div class="col-md-12 mb-3">
+                    <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-danger">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div> {% endcomment %}
+
+                <div class="col-md-6 mb-3">
+                    <label for="{{ form.senha.id_for_label }}" class="form-label">{{ form.senha.label }}</label>
+                    {{ form.senha }}
+                    {% if form.senha.errors %}
+                        <div class="text-danger">{{ form.senha.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="{{ form.senha_confirme.id_for_label }}" class="form-label">{{ form.senha_confirme.label }}</label>
+                    {{ form.senha_confirme }}
+                    {% if form.senha_confirme.errors %}
+                        <div class="text-danger">{{ form.senha_confirme.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+                    <a href="{% url "accounts:login" %}" class="btn btn-secondary w-100 mt-2">Voltar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js"></script>
+
+<script>
+    // Caso precise adicionar alguma funcionalidade com jQuery
+</script>
+
+{% endblock content %}
