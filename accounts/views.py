@@ -30,7 +30,7 @@ def login(request):
                 aviso = 'Login efetuado com sucesso!'
                 auth.login(request, usuario)
                 messages.success(request, aviso)
-                return redirect('pagme:list_people')  # Redireciona para a página inicial após login bem-sucedido
+                return redirect('list_people')  # Redireciona para a página inicial após login bem-sucedido
             else:
                 aviso = 'Login inválido! Dados incorretos ou conta não ativada.'
                 messages.error(request, aviso)
@@ -76,7 +76,7 @@ def cadastro(request):
         else:
             print(form.error_class, "kkkkkkkkk")
     
-    return render(request, "registration/cadastro.html", {"form": form})
+    return render(request, "template/registration/cadastro.html", {"form": form})
 
 
 def logout(request):
