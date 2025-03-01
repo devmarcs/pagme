@@ -17,6 +17,7 @@ class CustomLoginForm(AuthenticationForm):
             }
         )
     )
+
     password = forms.CharField(
         label="Senha",
         required=True,
@@ -56,6 +57,7 @@ class CadastroForms(forms.Form):
             }
         )
     )
+
     senha_confirme = forms.CharField(
         label="Confirmação de senha",
         required=True,
@@ -68,35 +70,6 @@ class CadastroForms(forms.Form):
         )
     )
 
-    # def __init__(self, *args, **kwargs):
-    #     self.mostrar_secretaria = kwargs.pop('mostrar_secretaria', False)
-    #     super().__init__(*args, **kwargs)
-    #     if not self.mostrar_secretaria:
-    #         self.fields.pop('secretaria', None)
-
-    #     if self.mostrar_secretaria:
-    #         self.fields['secretaria'] = forms.ModelChoiceField(
-    #             label="Secretaria",
-    #             required=True,
-    #             queryset=Secretaria.objects.all(),
-    #             widget=forms.Select(
-    #                 attrs={
-    #                     "class": "form-control"
-    #                 }
-    #             )
-    #         )
-        # else:
-        #     self.fields['secretaria'] = forms.ModelChoiceField(
-        #         label="Secretaria",
-        #         required=False,
-        #         queryset=Secretaria.objects.all(),
-        #         widget=forms.Select(
-        #             attrs={
-        #                 "class": "form-control"
-        #             }
-        #         )
-        #     )
-
     #Validação de Cadastro
     def clean_nome_cadastro(self):
         nome = self.cleaned_data.get("nome_cadastro")
@@ -105,8 +78,9 @@ class CadastroForms(forms.Form):
             nome = nome.strip()
             if " " in nome:
                 raise forms.ValidationError("Não é possivel inserir espaços dentro do campo Nome de Cadastro")
-            else:
-                return nome
+            if User.objects.filter(username=nome).exists():
+                raise forms.ValidationError("Esse nome de usuário já está em uso!")
+            return nome
             
     #Confirmação de senha
     def clean_senha_confirme(self):
@@ -118,14 +92,4 @@ class CadastroForms(forms.Form):
                 raise forms.ValidationError("Senhas não são iguais")
             else:
                 return senha_confirme
-            
-            
-# Depois implementar o cadastro de usuário com e-mail, por agora não usar          
-# class UpdateEmailForm(forms.ModelForm):
-#     class Meta:
-#         model = User
-#         fields = ['email']
-#         widgets = {
-#             'email': forms.EmailInput(attrs={'class': 'form-control'}),
-#         }
     
