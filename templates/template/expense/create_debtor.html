@@ -1,16 +1,51 @@
 {% extends "components/base_template.html" %}
 
 {% block content %}
-<div class="container">
-
-    <h1>Cadastrar Devedor e Dívida</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-    </form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white text-center">
+                    <h2 class="mb-0">Cadastrar Devedor e Dívida</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ form.name.label_tag }}
+                            {{ form.name }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.nickname.label_tag }}
+                            {{ form.nickname }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.value.label_tag }}
+                            {{ form.value }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.last_payment_date.label_tag }}
+                            {{ form.last_payment_date }}
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+                        <a href="{% url "pagme:peoples" %}" class="btn btn-secondary w-100 mt-3">Voltar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}
 
+{% block javascript %}
+{% comment %} <script>
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',  // Formato da data
+            autoclose: true  // Fecha o calendário após a seleção
+        });
+    });
+</script> {% endcomment %}
 
+{% endblock javascript %}

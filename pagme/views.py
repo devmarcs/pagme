@@ -30,8 +30,9 @@ class CreateDebtorView(FormView):
     
     def form_invalid(self, form):
         messages.error(self.request, "Erro ao cadastrar o devedor!")
+        print(f"Deu erro irmão {form.errors}")
         response = super().form_invalid(form)
-        response
+        return response
     
 
 

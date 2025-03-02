@@ -5,10 +5,23 @@ class DebtorsExpenseForm(forms.ModelForm):
     value = forms.DecimalField(
         max_digits=10,
         decimal_places=2,
-        label="Valor devido"
+        label="Valor devido",
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Digite o valor devido",
+                "step": 0.01,
+            }
+        )
     )
     last_payment_date = forms.DateField(
-        widget=forms.SelectDateWidget(),
+        widget=forms.DateInput(
+            attrs={
+                "class": "form-control datepicker",
+                "placeholder": "Selecione a data",
+                "type": "date"
+            }
+        ),
         label="Data do último pagamento"
     )
 
