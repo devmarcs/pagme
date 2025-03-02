@@ -1,6 +1,47 @@
-<h1>Chegou aqui</h1>
+{% extends "components/base_template.html" %}
 
-{% for expense in expenses %}
-<p>Valor a pagar R${{ expense.value }} reais</p>
-<p>Dia do último pagamento {{ expense.days }}</p>
-{% endfor %}
+{% block content %}
+<div class="d-flex justify-content-center container mt-5">
+    <div class="col-md-12">
+        {% include "components/messages.html" %}
+        <div class="card shadow-lg p-3">
+            <div class="card-header bg-dark text-white text-center">
+                <h2 class="m-0">Lista de Devedores</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Pessoa</th>
+                            <th scope="col">Apelido</th>
+                            <th scope="col">Valor da mensalidade</th>
+                            <th scope="col">Último dia que pagou</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if expenses %}
+                        {% for expense in expenses %}
+                        <tr>
+                            <td>{{ expense.debtor.name }}</td>
+                            <td>{{ expense.debtor.nickname }}</td>
+                            <td>R$ {{ expense.value }}</td>
+                            <td>{{ expense.days }}</td>
+                            <td>
+                                <a href="{ url 'editar_produto' expense.id %}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="{ url 'deletar_produto' expense.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Nenhum devedor cadastrado.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
