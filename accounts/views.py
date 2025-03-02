@@ -13,8 +13,9 @@ def login(request):
 
     if request.method == 'POST':
         form = CustomLoginForm(request.POST)
-
+        print(f"Vindo aqui00")
         if form.is_valid():
+            print(f"Vindo aqui77")
             username = form.cleaned_data["username"] 
             password = form.cleaned_data["password"]
 
@@ -27,13 +28,14 @@ def login(request):
                 aviso = 'Login efetuado com sucesso!'
                 auth.login(request, usuario)
                 messages.success(request, aviso)
-                return redirect('list_people')
+                return redirect('peoples')
             else:
+                print(f"Vindo aqui2")
                 messages.error(request, 'Login inválido! Dados incorretos.')
         else:
-            pass
+            print(f"Vindo aqui999")
 
-    messages.error(request, "Algo de errado aconteceu com o login!")
+    
     return render(request, "template/registration/login.html", {"form": form})
 
 
@@ -63,7 +65,7 @@ def cadastro(request):
         else:
             print(form.errors)
     
-    return render(request, "template/registration/cadastro.html", {"form": form})
+    return render(request, "registration/cadastro.html", {"form": form})
 
 
 def logout(request):
