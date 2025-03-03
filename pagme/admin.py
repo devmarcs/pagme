@@ -14,6 +14,8 @@ class DebitorsAdmin(admin.ModelAdmin):
         "pk",
         "name",
         "nickname",
+        "value",
+        "last_payment_date",
     ]
 
 # admin.site.register(Expense, ExpanseAdmin)

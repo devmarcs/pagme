@@ -1,4 +1,4 @@
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.urls import reverse_lazy
 from pagme.models import Debtors
@@ -37,8 +37,22 @@ class UpdateDebtor(UpdateView):
     def form_invalid(self, form):
         messages.error(self.request, "Erro ao atualizar o devedor!")
         return super().form_invalid(form)
+    
+class DeleteDebtor(DeleteView):
+    model = Debtors
+    template_name = "template/expense/delete_debtors.html"
+    success_url = reverse_lazy("pagme:list_debtors")
+    context_object_name = "debtors"
+
+    def delete(self, request, *args, **kwargs):
+        
+        self.object = self.get_object()
+        self.object.delete()
+        messages.success(self.request, "Devedor exclúido com sucesso!")
+        return super().delete(request, *args, **kwargs)
 
 
 list = ListDebtors.as_view()
 create = CreateDebtorView.as_view()
 update = UpdateDebtor.as_view()
+delete = DeleteDebtor.as_view()
