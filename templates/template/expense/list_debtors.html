@@ -7,12 +7,19 @@
             {% include "components/messages.html" %}
             <div class="card shadow-lg rounded-4">
                 <div class="card-header bg-dark text-white text-center py-3 rounded-top-4">
-                    <h2 class="m-0">Lista de Devedores</h2>
+                    <h2 class="m-0">Lista de Clientes</h2>
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
-                        <h5 class="text-secondary">Gerencie seus devedores</h5>
-                        <a href="{% url "pagme:create_debtor" %}" class="btn btn-success">+ Adicionar Devedor</a>
+                        <div class="d-flex flex-column gap-2">
+                            <h5 class="text-secondary">Gerencie seus clientes</h5>
+                            {% if expenses %}
+                            <p class="text-muted">{{ expenses.count }} Cliente(es) registrados </p>
+                            {% else %}
+                            
+                            {% endif %}
+                        </div>
+                            <a href="{% url "pagme:create_debtor" %}" class="btn btn-success h-25">+ Adicionar Cliente</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle text-center">
