@@ -20,6 +20,7 @@ class CreateDebtorView(CreateView):
         messages.error(self.request, "Erro ao cadastrar o devedor!")
         return super().form_invalid(form)
     
+
 class ListDebtors(ListView):
     model = Debtors
     template_name = "template/expense/list_debtors.html"
@@ -45,6 +46,10 @@ class UpdateDebtor(UpdateView):
     success_url = reverse_lazy("pagme:list_debtors")
 
     def form_valid(self, form):
+
+        if form.cleaned_data["is_paid"]:
+            form.instance.last_payment_date = timezone.now().date() # Atualiza o campo de último pagamento
+            
         messages.success(self.request, "Devedor atualizado com sucesso!")
         return super().form_valid(form)
 
@@ -52,6 +57,7 @@ class UpdateDebtor(UpdateView):
         messages.error(self.request, "Erro ao atualizar o devedor!")
         return super().form_invalid(form)
     
+
 class DeleteDebtor(DeleteView):
     model = Debtors
     template_name = "template/expense/delete_debtors.html"

@@ -13,6 +13,7 @@ class DebtorsForm(forms.ModelForm):
             "nickname",
             "value",
             "last_payment_date",
+            "is_paid",
         ]
         widgets = {
             "name": forms.TextInput(
@@ -39,6 +40,11 @@ class DebtorsForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "type": "date",
+                }
+            ),
+            "is_paid":forms.CheckboxInput(
+                attrs={
+                    "class": "form-check-input",
                 }
             ),
         }

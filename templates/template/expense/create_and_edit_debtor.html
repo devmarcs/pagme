@@ -28,6 +28,9 @@
                             {{ form.last_payment_date.label_tag }}
                             {{ form.last_payment_date }}
                         </div>
+                        <div class="mb-3 form-check">
+                            {{ form.is_paid }} {{ form.is_paid.label_tag }}
+                        </div>
                         <button type="submit" class="btn btn-success w-100">
                             {% if object %}Atualizar{% else %}Cadastrar{% endif %}
                         </button>

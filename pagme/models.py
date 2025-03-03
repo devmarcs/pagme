@@ -30,6 +30,13 @@ class Debtors(models.Model):
         blank=True
     )
 
+    is_paid = models.BooleanField(
+        verbose_name= _("Está pago?"),
+        default=False,
+        null=False,
+        blank=False
+    )
+
     def __str__(self):
         return f"{self.name} - {self.nickname}"
 
