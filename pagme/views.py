@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.urls import reverse_lazy
@@ -23,6 +24,19 @@ class ListDebtors(ListView):
     model = Debtors
     template_name = "template/expense/list_debtors.html"
     context_object_name = "expenses"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        today = timezone.now().date()
+        
+        for debtor in context["expenses"]:
+            if debtor.last_payment_date:
+                days_late = (today - debtor.last_payment_date).days
+                debtor.days_late = days_late
+            else:
+                debtor.days_late = None
+        return context
+    
 
 class UpdateDebtor(UpdateView):
     template_name = "template/expense/create_and_edit_debtor.html"
