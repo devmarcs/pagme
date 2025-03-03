@@ -28,7 +28,7 @@ def login(request):
                 aviso = 'Login efetuado com sucesso!'
                 auth.login(request, usuario)
                 messages.success(request, aviso)
-                return redirect('peoples')
+                return redirect('list_debtors')
             else:
                 print(f"Vindo aqui2")
                 messages.error(request, 'Login inválido! Dados incorretos.')

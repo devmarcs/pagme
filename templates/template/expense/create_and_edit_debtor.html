@@ -1,3 +1,4 @@
+<!-- create_debtor.html e update_debtor.html -->
 {% extends "components/base_template.html" %}
 
 {% block content %}
@@ -6,7 +7,7 @@
         <div class="col-md-8 col-lg-6">
             <div class="card shadow-sm">
                 <div class="card-header bg-dark text-white text-center">
-                    <h2 class="mb-0">Cadastrar Devedor e Dívida</h2>
+                    <h2 class="mb-0">{% if object %}Editar{% else %}Cadastrar{% endif %} Devedor</h2>
                 </div>
                 <div class="card-body">
                     <form method="post">
@@ -27,25 +28,14 @@
                             {{ form.last_payment_date.label_tag }}
                             {{ form.last_payment_date }}
                         </div>
-                        <button type="submit" class="btn btn-success w-100">Cadastrar</button>
-                        <a href="{% url "pagme:peoples" %}" class="btn btn-secondary w-100 mt-3">Voltar</a>
+                        <button type="submit" class="btn btn-success w-100">
+                            {% if object %}Atualizar{% else %}Cadastrar{% endif %}
+                        </button>
+                        <a href="{% url "pagme:list_debtors" %}" class="btn btn-secondary w-100 mt-3">Voltar</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-{% endblock content %}
-
-{% block javascript %}
-{% comment %} <script>
-    $(document).ready(function(){
-        $('.datepicker').datepicker({
-            format: 'yyyy-mm-dd',  // Formato da data
-            autoclose: true  // Fecha o calendário após a seleção
-        });
-    });
-</script> {% endcomment %}
-
-{% endblock javascript %}
+{% endblock %}

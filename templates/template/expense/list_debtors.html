@@ -24,10 +24,10 @@
                         {% if expenses %}
                         {% for expense in expenses %}
                         <tr>
-                            <td>{{ expense.debtor.name }}</td>
-                            <td>{{ expense.debtor.nickname }}</td>
+                            <td>{{ expense.name }}</td>
+                            <td>{{ expense.nickname }}</td>
                             <td>R$ {{ expense.value }}</td>
-                            <td>{{ expense.days }}</td>
+                            <td>{{ expense.last_payment_date }}</td>
                             <td>
                                 <a href="{% url 'pagme:update_debtor' expense.pk %}" class="btn btn-sm btn-warning">Editar</a>
                                 <a href="{ url 'deletar_produto' expense.id %}" class="btn btn-sm btn-danger">Excluir</a>
